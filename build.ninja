@@ -1,0 +1,9 @@
+SRC_NINJA = src.ninja
+TOOLCHAIN_DIR = toolchain
+INCLUDES = -I inc
+SRC = .
+
+include toolchain/host-clang.ninja
+subninja toolchain/target-clang-debug.ninja
+subninja toolchain/target-clang-release.ninja
+

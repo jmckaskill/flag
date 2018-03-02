@@ -1,0 +1,30 @@
+bin = bin/$TGT
+obj = bin/obj/$TGT
+
+build $obj/flag/flag.o: cc $SRC/lib/flag.c
+build $obj/flag/ptr-vector.o: cc $SRC/lib/ptr-vector.c
+build $obj/flag/str.o: cc $SRC/lib/str.c
+build $obj/flag/test.o: cc $SRC/lib/test.c
+build $obj/flag.lib: lib $
+ $obj/flag/flag.o $
+ $obj/flag/ptr-vector.o $
+ $obj/flag/str.o $
+ $obj/flag/test.o $
+
+build $obj/flag/flag_test.o: cc $SRC/lib/flag_test.c
+build $bin/test_flag.exe: clink $obj/flag/flag_test.o $obj/flag.lib
+build $bin/test_flag.log: run $bin/test_flag.exe
+
+build $obj/flag/str_test.o: cc $SRC/lib/str_test.c
+build $bin/test_str.exe: clink $obj/flag/str_test.o $obj/flag.lib
+build $bin/test_str.log: run $bin/test_str.exe
+
+build $obj/flag/test_test.o: cc $SRC/lib/test_test.c
+build $bin/test_test.exe: clink $obj/flag/test_test.o $obj/flag.lib
+build $bin/test_test.log: run $bin/test_test.exe
+
+build $TGT: phony $
+ $bin/test_test.log $
+ $bin/test_flag.log $
+ $bin/test_str.log $
+
